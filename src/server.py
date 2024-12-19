@@ -28,19 +28,17 @@ async def register(websocket):
 
 
 async def listen():
-    print('\t\t\topen listener')
-    await asyncio.sleep(1)
     while True:
-        print('\t\t\t--listener iteration')
         await asyncio.sleep(1)
         for ws in LISTEN['nlx']:
-            mess = await ws.recv()
-            print(f'\t\t\t----message: {mess}')
-            MESSAGE['nlx'] = mess
+            try:
+                mess = await ws.recv()
+                MESSAGE['nlx'] = mess
+            except Exception:
+                LISTEN['nlx'].remove(websocket)
 
 
 async def sending(stream='nlx'):
-    print('sending stream')
     while True:
         broadcast(SUBSCRIBE[stream], MESSAGE[stream])
         print('broadcast')

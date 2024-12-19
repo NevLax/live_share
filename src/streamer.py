@@ -7,7 +7,6 @@ async def stream():
         await websocket.send('stream')
         while True:
             mess = input()
-            print(mess)
             if mess:
                 await websocket.send(mess)
             else:
