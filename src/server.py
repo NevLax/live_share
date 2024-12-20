@@ -3,7 +3,7 @@ from websockets.asyncio.server import serve
 from websockets.asyncio.server import broadcast
 
 SUBSCRIBE = {'nlx': set(),}
-MESSAGE = {'nlx': 'message'}
+MESSAGE = {'nlx': 'async def hello():'}
 LISTEN = {'nlx': set()}
 
 async def register(websocket):
@@ -35,7 +35,7 @@ async def listen():
                 mess = await ws.recv()
                 MESSAGE['nlx'] = mess
             except Exception:
-                LISTEN['nlx'].remove(websocket)
+                pass
 
 
 async def sending(stream='nlx'):
